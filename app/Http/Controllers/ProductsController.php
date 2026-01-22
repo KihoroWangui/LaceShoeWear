@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Products;
 
 class ProductsController extends Controller
 {
-    // The entire product listing
+    //  list all active products
     public function index()
     {
-        $products = ProductsController::where('is_active', true)->paginate(12);
+        $products = Products::where('is_active', true)->paginate(12);
         return view('products.index', compact('products'));
     }
 
-    // Single product listing
+    // show single product
     public function show(Product $product)
     {
         return view('products.show', compact('product'));
@@ -67,6 +68,4 @@ class ProductsController extends Controller
         $product->delete();
         return redirect()->back()->with('success', 'Product deleted');
     }
-}
-
 }
